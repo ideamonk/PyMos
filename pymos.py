@@ -9,7 +9,7 @@ import ImageFilter
 
 files = os.listdir('./kids')
 colormap = []
-mag = 10
+mag = 20
 
 print "Building index..."
 for aFile in files:
@@ -41,8 +41,8 @@ mainImage = Image.open ('./images/foo.jpg')
 mainData = list(mainImage.getdata())
 output = Image.new (mainImage.mode,(mainImage.size[0]*mag,mainImage.size[1]*mag),(255,255,255))
 
-for x in range(0,mainImage.size[0],5):
-	for y in range(0,mainImage.size[1],5):
+for x in range(0,mainImage.size[0],2):
+	for y in range(0,mainImage.size[1],2):
 		color = mainData[y*mainImage.size[0]+x]
 		# match color
 		match = ( (555,555,555), "")
@@ -58,8 +58,8 @@ for x in range(0,mainImage.size[0],5):
 		#print dc,color
 		try:
 			pim = Image.open('./kids/' + match[1])
-			pim = pim.resize ((50,50),Image.BICUBIC)
-			output.paste (pim,(x*10,y*10))	
+			pim = pim.resize ((40,40),Image.BICUBIC)
+			output.paste (pim,(x*20,y*20))	
 		except:
 			''' '''
 	print (float(x) / mainImage.size[0])*100, "% done"
