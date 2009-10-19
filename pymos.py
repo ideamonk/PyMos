@@ -63,8 +63,8 @@ def build_mosaic(input_path, output_path, collection_path, zoom=20, thumb_size=6
 
 	log.info("Generating Mosaic...")
 	# square mosaics as for now
-	for x in range(0, output_width, thumb_size):
-		for y in range(0, output_height, thumb_size):
+	for x in xrange(0, output_width, thumb_size):
+		for y in xrange(0, output_height, thumb_size):
 			source_color = sourceData[ (y*source_width + x) / zoom ]
 			
 			# euclidean distance, color, source
