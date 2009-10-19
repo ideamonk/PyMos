@@ -1,11 +1,10 @@
 #!/usr/bin/env python
-# author -- ideamonk at gmail.com
-# diwali night hack
+# PyMos
+# Diwali Night Hack - Mosaic Generator using Python
+#																			-- Abhishek Mishra <ideamonk at gmail.com>
 
-import Image
-import os,sys
-import random
-import ImageFilter
+import Image, ImageFilter
+import os, sys, math, random
 
 COLLECTION_PATH = './collection/'
 
@@ -83,19 +82,45 @@ if __name__ == '__main__':
 	for x in range(0, output_width, thumb_size):
 		for y in range(0, output_height, thumb_size):
 			source_color = sourceData[ (y*source_width + x) / zoom ]
-			match = ( (555,555,555), "")		# initially something out of range
+			
+			# euclidean distance, color, source
+			match = (555, (555,555,555), "")		# initially something out of range
 		
 			for thumbs in colormap:
-				thumb_color = thumbs[0]
+				thumb_color, thumb_file = thumbs
+				'''
 				# poor matching algorithm ahead
 				if (abs( thumb_color[0] - source_color[0] ) < abs(match[0][0] - source_color[0]) and
 						abs( thumb_color[1] - source_color[1] ) < abs(match[0][1] - source_color[1]) and
 						abs( thumb_color[2] - source_color[2] ) < abs(match[0][2] - source_color[2])
 						):
 							match = (thumb_color,thumbs[1])
-
+				'''
+				# new matching method
+				# calculate the euclidian distance between the two colors by taking the 
+				# square root of the quantity 
+				#		[(r2-r1)*(r2-r1) + (g2-g1)*(g2-g1) + (b2-b1)*(b2-b1)]'
+				#
+				# :( However, comparisons based on a metric like euclidian distance 
+				# assumes that the rgb colorspace is orthogonal, homogenous, and linear 
+				# in all three dimensions. These assumptions are subject to the 
+				# composition of one's photoreceptors and to the method of translating 
+				# these values into electromagnetic radiation.
+				#
+				# :'(  There are notions of contrast and neutrality that a simple 
+				# euclidean metric doesn't capture.
+				r1,g1,b1 = source_color
+				r2,g2,b2 = thumb_color
+				r3,g3,b3 = match[1]
+				
+				ecd_match = match[0]
+				ecd_found = math.sqrt ( (r2-r1)**2 + (g2-g1)**2 + (b2-b1)**2)
+				
+				if (ecd_found < ecd_match):
+						match = (ecd_found,thumb_color,thumb_file)
+				
 			try:
-				small_image = Image.open(COLLECTION_PATH + match[1])
+				small_image = Image.open(COLLECTION_PATH + match[2])
 				small_image = small_image.resize ((thumb_size,thumb_size),Image.BICUBIC)
 				output.paste (small_image,(x,y))	
 			except:

@@ -12,4 +12,5 @@ TODO
     [ ] More generic/re-usable code / driver-worker separation as i call it
     [ ] improved color matching
     [ ] make source_color average for a region if optimal
+    [ ] use pickle to avoid colormap regeneration, update when user desires
 
