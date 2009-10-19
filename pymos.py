@@ -17,6 +17,7 @@ def build_colormap(files):
 	colormap = []
 	file_count = 0
 	total_files = len(files)
+	log = logging.getLogger("PyMos")
 	for eachfile in files:
 		im = Image.open(eachfile)
 		
