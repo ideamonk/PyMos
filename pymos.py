@@ -7,65 +7,107 @@ import os,sys
 import random
 import ImageFilter
 
-files = os.listdir('./kids')
+COLLECTION_PATH = './collection/'
+
 colormap = []
-mag = 20
 
-print "Building index..."
-for aFile in files:
+if __name__ == '__main__':
 	
-	im = Image.open ('./kids/' + aFile)
-	im = im.filter(ImageFilter.BLUR)
-	im = im.filter(ImageFilter.BLUR)
-	#im = im.filter(ImageFilter.BLUR)
-	#im = im.filter(ImageFilter.BLUR)
-	#im = im.filter(ImageFilter.BLUR)
+	# ===================== Build Color index for all images =====================
+	print "Building index..."
 	
-	r = 0
-	g = 0
-	b = 0
-	imdata = list(im.getdata())
-	for i in imdata:
-		r += i[0]
-		g += i[1]
-		b += i[2]
+	files = os.listdir(COLLECTION_PATH)
+	total_files = len(files)
+	file_count = 0
+	
+	for eachfile in files:
+		im = Image.open (COLLECTION_PATH + eachfile)
 
-	r /= len(imdata)
-	g /= len(imdata)
-	b /= len(imdata)
-
-	colormap.append(((r,g,b), aFile))	
-
-# got colormap generated
-mainImage = Image.open ('./images/foo.jpg')
-mainData = list(mainImage.getdata())
-output = Image.new (mainImage.mode,(mainImage.size[0]*mag,mainImage.size[1]*mag),(255,255,255))
-
-for x in range(0,mainImage.size[0],2):
-	for y in range(0,mainImage.size[1],2):
-		color = mainData[y*mainImage.size[0]+x]
-		# match color
-		match = ( (555,555,555), "")
+		# lets blur a little to bring major color's prominance	
+		im = im.filter(ImageFilter.BLUR)
+		im = im.filter(ImageFilter.BLUR)
+		im = im.filter(ImageFilter.BLUR)
+	
+		r = g = b = 0
+		imdata = list(im.getdata())
+		imdata_size = len(imdata)
 		
-		for images in colormap:
-			dc = images[0]
-			if ( abs( dc[0] - color[0] ) < abs(match[0][0] - color[0]) and
-					abs( dc[1] - color[1] ) < abs(match[0][1] - color[1]) and
-					abs( dc[2] - color[2] ) < abs(match [0][2] - color[2])
-					):
-						#if (random.randint(1,10)!=3):
-						match = (dc,images[1])
-		#print dc,color
-		try:
-			pim = Image.open('./kids/' + match[1])
-			pim = pim.resize ((40,40),Image.BICUBIC)
-			output.paste (pim,(x*20,y*20))	
-		except:
-			''' '''
-	print (float(x) / mainImage.size[0])*100, "% done"
-	#output.show()
-	#raw_input()
-	#output.save ("/tmp/state.png","PNG")
-output.show()
-output.save("/home/ideamonk/mosaic/output.png", "PNG")
+		for i in imdata:
+			r += i[0]
+			g += i[1]
+			b += i[2]
+
+		# average the color of this thumbnail
+		r /= imdata_size
+		g /= imdata_size
+		b /= imdata_size
+		
+		# append to colormap
+		colormap.append(((r,g,b), eachfile))	
+		
+		file_count+=1
+		print "%.1f %% done" % ( (float(file_count) / total_files) * 100 )
+
+	print "[+] Color Index built"
+	
+	# ============================== Get user config =============================
+	zoom = 20
+	thumb_size = 60
+
+	print 'Enter zoom factor (=20) :',
+	try:
+		zoom = int(raw_input())
+	except:
+		'''taking default as 20'''
+	
+	print 'Enter thumbnail size (=60) :',
+	try:
+		thumb_size = int(raw_input())
+	except:
+		'''taking default as 60 '''
+		
+	# prepare images
+	sourceImage = Image.open ('./input.jpg')
+	sourceData = list(sourceImage.getdata())
+	source_width, source_height = sourceImage.size
+	output_width = source_width*zoom
+	output_height = source_height*zoom
+	
+	output = Image.new (sourceImage.mode,
+												(output_width,output_height),
+												(255,255,255)				# white background
+											)
+
+	# square mosaics as for now
+
+	for x in range(0, output_width, thumb_size):
+		for y in range(0, output_height, thumb_size):
+			source_color = sourceData[ (y*source_width + x) / zoom ]
+			match = ( (555,555,555), "")		# initially something out of range
+		
+			for thumbs in colormap:
+				thumb_color = thumbs[0]
+				# poor matching algorithm ahead
+				if (abs( thumb_color[0] - source_color[0] ) < abs(match[0][0] - source_color[0]) and
+						abs( thumb_color[1] - source_color[1] ) < abs(match[0][1] - source_color[1]) and
+						abs( thumb_color[2] - source_color[2] ) < abs(match[0][2] - source_color[2])
+						):
+							match = (thumb_color,thumbs[1])
+
+			try:
+				small_image = Image.open(COLLECTION_PATH + match[1])
+				small_image = small_image.resize ((thumb_size,thumb_size),Image.BICUBIC)
+				output.paste (small_image,(x,y))	
+			except:
+				''' maybe nothing got matched! '''
+				
+		print "%.1f %% done" % ((float(x) / output_width)*100)
+		
+		# single line test
+		#output.show()
+		#raw_input()
+
+	# final output
+	output.show()
+	output.save("./output.png", "PNG")
 

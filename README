@@ -8,8 +8,8 @@ Have Fun
 
 TODO
   
-    [ ] get rid of spaghetti
-    [ ] More generic/usable code
+    [+] get rid of spaghetti
+    [ ] More generic/re-usable code / driver-worker separation as i call it
     [ ] improved color matching
-    
+    [ ] make source_color average for a region if optimal
 
