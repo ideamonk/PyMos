@@ -6,6 +6,13 @@
 import Image, ImageFilter
 import os, sys, math, random
 import logging
+import glob
+
+try:
+	import cPickle as pickle
+except ImportError:
+	import pickle
+	
 
 def build_colormap(files):
 	colormap = []
@@ -41,16 +48,21 @@ def build_colormap(files):
 	return colormap
 
 
-def build_mosaic(input_path, output_path, collection_path, zoom=20, thumb_size=60):
+def build_mosaic(input_path, output_path, collection_path, zoom=20, thumb_size=60, new_colormap=False):
 	log = logging.getLogger("PyMos")
 
 	# Build Color Index
 	log.info( "Building index...")
 	
-	files = [os.path.join(collection_path, filename) for filename in os.listdir(collection_path)]
+	files = glob.glob(os.path.join(collection_path, '*.jpg'))
 	total_files = len(files)
 	file_count = 0
-	colormap = build_colormap(files)
+	colormap_file = os.path.join(collection_path, '.colormap')
+	if os.path.exists(colormap_file) and not new_colormap:
+		colormap = pickle.load(open(colormap_file))
+	else:
+		colormap = build_colormap(files)
+		pickle.dump(colormap, open(colormap_file, 'w'))
 	
 	log.info("Color Index built")
 	
