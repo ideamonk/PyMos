@@ -13,7 +13,6 @@ try:
 except ImportError:
 	import pickle
 	
-
 def build_colormap(files):
 	colormap = []
 	file_count = 0
@@ -124,10 +123,3 @@ def build_mosaic(input_path, output_path, collection_path, zoom=20, thumb_size=6
 	log.info("Mosaic Generated")		
 	output.save(output_path, "PNG")
 	log.info("Output File Written")
-
-
-if __name__ == '__main__':
-	logging.basicConfig() #YUCK, WHO wrote standard library's logging module? Some Java guy? GEEZ!
-	log = logging.getLogger("PyMos")
-	log.setLevel(logging.INFO)
-	build_mosaic('input.jpg', 'output.png', 'collection/')
