@@ -7,21 +7,13 @@ import Image, ImageFilter
 import os, sys, math, random
 import logging
 
-def build_mosaic(input_path, output_path, collection_path, zoom=20, thumb_size=60):
-
-	log = logging.getLogger("PyMos")
-
-	# Build Color Index
-	log.info( "Building index...")
-	
-	files = os.listdir(collection_path)
-	total_files = len(files)
-	file_count = 0
+def build_colormap(files):
 	colormap = []
-	
+	file_count = 0
+	total_files = len(files)
 	for eachfile in files:
-		im = Image.open (os.path.join(collection_path, eachfile))
-
+		im = Image.open(eachfile)
+		
 		# lets blur a little to bring major color's prominance	
 		im = im.filter(ImageFilter.BLUR)
 		im = im.filter(ImageFilter.BLUR)
@@ -46,7 +38,20 @@ def build_mosaic(input_path, output_path, collection_path, zoom=20, thumb_size=6
 		
 		file_count+=1
 		log.debug("%.1f %% done" % ( (float(file_count) / total_files) * 100 ))
+	return colormap
 
+
+def build_mosaic(input_path, output_path, collection_path, zoom=20, thumb_size=60):
+	log = logging.getLogger("PyMos")
+
+	# Build Color Index
+	log.info( "Building index...")
+	
+	files = [os.path.join(collection_path, filename) for filename in os.listdir(collection_path)]
+	total_files = len(files)
+	file_count = 0
+	colormap = build_colormap(files)
+	
 	log.info("Color Index built")
 	
 	# prepare images
@@ -88,7 +93,7 @@ def build_mosaic(input_path, output_path, collection_path, zoom=20, thumb_size=6
 				r1,g1,b1 = source_color
 				r2,g2,b2 = thumb_color
 				r3,g3,b3 = match[1]
-				
+			
 				ecd_match = match[0]
 				ecd_found = math.sqrt ( (r2-r1)**2 + (g2-g1)**2 + (b2-b1)**2)
 				
@@ -96,7 +101,7 @@ def build_mosaic(input_path, output_path, collection_path, zoom=20, thumb_size=6
 						match = (ecd_found,thumb_color,thumb_file)
 				
 			try:
-				small_image = Image.open(collection_path + match[2])
+				small_image = Image.open(match[2])
 				small_image = small_image.resize ((thumb_size,thumb_size),Image.BICUBIC)
 				output.paste (small_image,(x,y))	
 			except:
