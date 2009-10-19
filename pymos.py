@@ -72,19 +72,16 @@ if __name__ == '__main__':
 	output_width = source_width*zoom
 	output_height = source_height*zoom
 	
-	output = Image.new (sourceImage.mode,
-												(output_width,output_height),												
-												(255,255,255)				# white background
-											)
+	output = Image.new ( sourceImage.mode, (output_width,output_height),												
+                        (255,255,255) )
 
 	# square mosaics as for now
-
 	for x in range(0, output_width, thumb_size):
 		for y in range(0, output_height, thumb_size):
 			source_color = sourceData[ (y*source_width + x) / zoom ]
 			
 			# euclidean distance, color, source
-			match = (555, (555,555,555), "")		# initially something out of range
+			match = (555, (555,555,555), "")# initially something out of range
 		
 			for thumbs in colormap:
 				thumb_color, thumb_file = thumbs
