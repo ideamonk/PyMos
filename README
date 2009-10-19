@@ -3,4 +3,13 @@ I was bored so I had to write something quick...
 I call it PyMos, I should've called it PyMosaic, but that sounds too long.
 It does something like this to images/foo.jpg using kids/* as seen here - http://www.flickr.com/photos/ideamonk/4020798966/sizes/l/
 Have Fun
---ideamonk
+                                                                    --ideamonk
+
+
+TODO
+  
+    [ ] get rid of spaghetti
+    [ ] More generic/usable code
+    [ ] improved color matching
+    
+
