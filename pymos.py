@@ -1,26 +1,22 @@
 #!/usr/bin/env python
 # PyMos
 # Diwali Night Hack - Mosaic Generator using Python
-#																			-- Abhishek Mishra <ideamonk at gmail.com>
+# Abhishek Mishra <ideamonk at gmail.com>
 
 import Image, ImageFilter
 import os, sys, math, random
 
-COLLECTION_PATH = './collection/'
-
-colormap = []
-
-if __name__ == '__main__':
-	
-	# ===================== Build Color index for all images =====================
+def build_mosaic(input_path, output_path, collection_path, zoom=20, thumb_size=60):
+	# Build Color Index
 	print "Building index..."
 	
-	files = os.listdir(COLLECTION_PATH)
+	files = os.listdir(collection_path)
 	total_files = len(files)
 	file_count = 0
+	colormap = []
 	
 	for eachfile in files:
-		im = Image.open (COLLECTION_PATH + eachfile)
+		im = Image.open (collection_path + eachfile)
 
 		# lets blur a little to bring major color's prominance	
 		im = im.filter(ImageFilter.BLUR)
@@ -49,24 +45,8 @@ if __name__ == '__main__':
 
 	print "[+] Color Index built"
 	
-	# ============================== Get user config =============================
-	zoom = 20
-	thumb_size = 60
-
-	print 'Enter zoom factor (=20) :',
-	try:
-		zoom = int(raw_input())
-	except:
-		'''taking default as 20'''
-	
-	print 'Enter thumbnail size (=60) :',
-	try:
-		thumb_size = int(raw_input())
-	except:
-		'''taking default as 60 '''
-		
 	# prepare images
-	sourceImage = Image.open ('./input.jpg')
+	sourceImage = Image.open (input_path)
 	sourceData = list(sourceImage.getdata())
 	source_width, source_height = sourceImage.size
 	output_width = source_width*zoom
@@ -85,14 +65,6 @@ if __name__ == '__main__':
 		
 			for thumbs in colormap:
 				thumb_color, thumb_file = thumbs
-				'''
-				# poor matching algorithm ahead
-				if (abs( thumb_color[0] - source_color[0] ) < abs(match[0][0] - source_color[0]) and
-						abs( thumb_color[1] - source_color[1] ) < abs(match[0][1] - source_color[1]) and
-						abs( thumb_color[2] - source_color[2] ) < abs(match[0][2] - source_color[2])
-						):
-							match = (thumb_color,thumbs[1])
-				'''
 				# new matching method
 				# calculate the euclidian distance between the two colors by taking the 
 				# square root of the quantity 
@@ -117,7 +89,7 @@ if __name__ == '__main__':
 						match = (ecd_found,thumb_color,thumb_file)
 				
 			try:
-				small_image = Image.open(COLLECTION_PATH + match[2])
+				small_image = Image.open(collection_path + match[2])
 				small_image = small_image.resize ((thumb_size,thumb_size),Image.BICUBIC)
 				output.paste (small_image,(x,y))	
 			except:
@@ -125,11 +97,7 @@ if __name__ == '__main__':
 				
 		print "%.1f %% done" % ((float(x) / output_width)*100)
 		
-		# single line test
-		#output.show()
-		#raw_input()
+	output.save(output_path, "PNG")
 
-	# final output
-	output.show()
-	output.save("./output.png", "PNG")
-
+if __name__ == '__main__':
+	build_mosaic('input.jpg', 'output.png', 'collection/')
