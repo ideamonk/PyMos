@@ -1,16 +1,29 @@
 Hi, 
+
 I was bored so I had to write something quick...
+
 I call it PyMos, I should've called it PyMosaic, but that sounds too long.
-It does something like this to images/foo.jpg using kids/* as seen here - http://www.flickr.com/photos/ideamonk/4020798966/sizes/l/
+
+It does something like this to input.jpg using collection/* as seen here - http://www.flickr.com/photos/ideamonk/4020798966/sizes/l/
+
+How to make your own -
+  grab some image, put it as input.jpg besides script
+  grab some matching color images, push them into collection, keep smalls images
+  how to - goto flickr.com search something, n.times do{ rightclick, save }
+  run the script, let it work
+  stare/zoom around output.png, show it to friends, feel k3wl
+  
 Have Fun
+
                                                                     --ideamonk
 
 
 TODO
   
     [+] get rid of spaghetti
+    [+] improved color matching
+        - euclidean distance FTW
     [ ] More generic/re-usable code / driver-worker separation as i call it
-    [ ] improved color matching
     [ ] make source_color average for a region if optimal
     [ ] use pickle to avoid colormap regeneration, update when user desires
 
