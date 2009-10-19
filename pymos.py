@@ -16,7 +16,7 @@ def build_mosaic(input_path, output_path, collection_path, zoom=20, thumb_size=6
 	colormap = []
 	
 	for eachfile in files:
-		im = Image.open (collection_path + eachfile)
+		im = Image.open (os.path.join(collection_path, eachfile))
 
 		# lets blur a little to bring major color's prominance	
 		im = im.filter(ImageFilter.BLUR)
