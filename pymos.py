@@ -5,10 +5,14 @@
 
 import Image, ImageFilter
 import os, sys, math, random
+import logging
 
 def build_mosaic(input_path, output_path, collection_path, zoom=20, thumb_size=60):
+
+	log = logging.getLogger("PyMos")
+
 	# Build Color Index
-	print "Building index..."
+	log.info( "Building index...")
 	
 	files = os.listdir(collection_path)
 	total_files = len(files)
@@ -41,9 +45,9 @@ def build_mosaic(input_path, output_path, collection_path, zoom=20, thumb_size=6
 		colormap.append(((r,g,b), eachfile))	
 		
 		file_count+=1
-		print "%.1f %% done" % ( (float(file_count) / total_files) * 100 )
+		log.debug("%.1f %% done" % ( (float(file_count) / total_files) * 100 ))
 
-	print "[+] Color Index built"
+	log.info("Color Index built")
 	
 	# prepare images
 	sourceImage = Image.open (input_path)
@@ -52,9 +56,12 @@ def build_mosaic(input_path, output_path, collection_path, zoom=20, thumb_size=6
 	output_width = source_width*zoom
 	output_height = source_height*zoom
 	
-	output = Image.new ( sourceImage.mode, (output_width,output_height),												
-                        (255,255,255) )
+	output = Image.new(sourceImage.mode,
+			   (output_width,output_height),
+			   (255,255,255)
+			   )
 
+	log.info("Generating Mosaic...")
 	# square mosaics as for now
 	for x in range(0, output_width, thumb_size):
 		for y in range(0, output_height, thumb_size):
@@ -95,9 +102,15 @@ def build_mosaic(input_path, output_path, collection_path, zoom=20, thumb_size=6
 			except:
 				''' maybe nothing got matched! '''
 				
-		print "%.1f %% done" % ((float(x) / output_width)*100)
-		
+		log.debug("%.1f %% done" % ((float(x) / output_width)*100))
+
+	log.info("Mosaic Generated")		
 	output.save(output_path, "PNG")
+	log.info("Output File Written")
+
 
 if __name__ == '__main__':
+	logging.basicConfig() #YUCK, WHO wrote standard library's logging module? Some Java guy? GEEZ!
+	log = logging.getLogger("PyMos")
+	log.setLevel(logging.INFO)
 	build_mosaic('input.jpg', 'output.png', 'collection/')
