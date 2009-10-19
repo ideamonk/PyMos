@@ -73,7 +73,7 @@ if __name__ == '__main__':
 	output_height = source_height*zoom
 	
 	output = Image.new (sourceImage.mode,
-												(output_width,output_height),
+												(output_width,output_height),												
 												(255,255,255)				# white background
 											)
 
