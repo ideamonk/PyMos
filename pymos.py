@@ -94,7 +94,7 @@ def build_mosaic(input_path, output_path, collection_path, zoom=20, thumb_size=6
 	# square mosaics as for now
 	for x in xrange(0, output_width, thumb_size):
 		for y in xrange(0, output_height, thumb_size):
-			source_color = sourceData[ (y*source_width + x) / zoom ]
+			source_color = sourceData[ (y/zoom) * source_width + x/zoom ]
 			
 			# euclidean distance, color, index in colormap
 			match = (555, (555,555,555), 0)# initially something out of range
