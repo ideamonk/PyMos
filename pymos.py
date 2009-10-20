@@ -51,7 +51,9 @@ def build_colormap(files):
 		b /= imdata_size
 		
 		# append to colormap
-		colormap.append(((r,g,b), eachfile))	
+		colormap.append( ( (r,g,b), eachfile, None ))
+		# ^^ new format for colormap, None replaced with resized images
+		# when processing to optimize
 		
 		file_count+=1
 		log.debug("%.1f %% done" % ( (float(file_count) / total_files) * 100 ))
@@ -94,24 +96,12 @@ def build_mosaic(input_path, output_path, collection_path, zoom=20, thumb_size=6
 		for y in xrange(0, output_height, thumb_size):
 			source_color = sourceData[ (y*source_width + x) / zoom ]
 			
-			# euclidean distance, color, source
-			match = (555, (555,555,555), "")# initially something out of range
+			# euclidean distance, color, index in colormap
+			match = (555, (555,555,555), 0)# initially something out of range
 		
-			for thumbs in colormap:
-				thumb_color, thumb_file = thumbs
-				# new matching method
-				# calculate the euclidian distance between the two colors by taking the 
-				# square root of the quantity 
-				#		[(r2-r1)*(r2-r1) + (g2-g1)*(g2-g1) + (b2-b1)*(b2-b1)]'
-				#
-				# :( However, comparisons based on a metric like euclidian distance 
-				# assumes that the rgb colorspace is orthogonal, homogenous, and linear 
-				# in all three dimensions. These assumptions are subject to the 
-				# composition of one's photoreceptors and to the method of translating 
-				# these values into electromagnetic radiation.
-				#
-				# :'(  There are notions of contrast and neutrality that a simple 
-				# euclidean metric doesn't capture.
+			for index,thumbs in zip (xrange(len(colormap)), colormap):
+				thumb_color, thumb_file = thumbs[0], thumbs[1]
+				# calculate the euclidian distance between the two colors
 				r1,g1,b1 = source_color
 				r2,g2,b2 = thumb_color
 				r3,g3,b3 = match[1]
@@ -120,12 +110,14 @@ def build_mosaic(input_path, output_path, collection_path, zoom=20, thumb_size=6
 				ecd_found = math.sqrt ( (r2-r1)**2 + (g2-g1)**2 + (b2-b1)**2)
 				
 				if (ecd_found < ecd_match):
-						match = (ecd_found,thumb_color,thumb_file)
+						match = (ecd_found,thumb_color,index)
 				
 			try:
-				small_image = Image.open(match[2])
-				small_image = small_image.resize ((thumb_size,thumb_size),Image.BICUBIC)
-				output.paste (small_image,(x,y))	
+				if (colormap[match[2]][2] == None):   # has not been resized yet
+					colormap[match[2]] = (colormap[match[2]][0], colormap[match[2]][1],Image.open(colormap[match[2]][1]))
+					colormap[match[2]] = (colormap[match[2]][0], colormap[match[2]][1],colormap[match[2]][2].resize ((thumb_size,thumb_size),Image.BICUBIC) )
+					
+				output.paste (colormap[match[2]][2],(x,y))	
 			except:
 				''' maybe nothing got matched! '''
 				
