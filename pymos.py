@@ -1,7 +1,16 @@
 #!/usr/bin/env python
-# PyMos
-# Diwali Night Hack - Mosaic Generator using Python
-# Abhishek Mishra <ideamonk at gmail.com>
+# Pandamonkium Productions present
+#                ____        __  ___          
+#               / __ \__  __/  |/  /___  _____
+#              / /_/ / / / / /|_/ / __ \/ ___/
+#             / ____/ /_/ / /  / / /_/ (__  ) 
+#            /_/    \__, /_/  /_/\____/____/  
+#                  /____/ 1.0
+#      
+#                                                      -- ideamonk and yuvipanda
+#                                                                 #hackers-india
+
+# Mosaic Generator using Python ( Diwali Night Hack )
 
 import Image, ImageFilter
 import os, sys, math, random
