@@ -36,5 +36,6 @@ TODO
     [ ] make source_color average for a region if optimal / is slow
     [+] use pickle to avoid colormap regeneration, update when user desires
         + now it auto updates the cache
-    [ ] optimize by resize reduction - some DP to be done
+    [+] optimize by resize reduction - some DP to be done
+    [ ] multiprocessing
 
