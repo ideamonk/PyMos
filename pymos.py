@@ -1,27 +1,36 @@
 #!/usr/bin/env python
-# PyMos
-# Diwali Night Hack - Mosaic Generator using Python
-#																			-- Abhishek Mishra <ideamonk at gmail.com>
+
+# Pandamonkium Productions present
+#                ____        __  ___          
+#               / __ \__  __/  |/  /___  _____
+#              / /_/ / / / / /|_/ / __ \/ ___/
+#             / ____/ /_/ / /  / / /_/ (__  ) 
+#            /_/    \__, /_/  /_/\____/____/  
+#                  /____/ 1.0
+#      
+#                                                      -- ideamonk and yuvipanda
+#                                                                 #hackers-india
+
+# Mosaic Generator using Python ( Diwali Night Hack )
 
 import Image, ImageFilter
 import os, sys, math, random
+import logging
+import glob
 
-COLLECTION_PATH = './collection/'
-
-colormap = []
-
-if __name__ == '__main__':
+try:
+	import cPickle as pickle
+except ImportError:
+	import pickle
 	
-	# ===================== Build Color index for all images =====================
-	print "Building index..."
-	
-	files = os.listdir(COLLECTION_PATH)
-	total_files = len(files)
+def build_colormap(files):
+	colormap = []
 	file_count = 0
-	
+	total_files = len(files)
+	log = logging.getLogger("PyMos")
 	for eachfile in files:
-		im = Image.open (COLLECTION_PATH + eachfile)
-
+		im = Image.open(eachfile)
+		
 		# lets blur a little to bring major color's prominance	
 		im = im.filter(ImageFilter.BLUR)
 		im = im.filter(ImageFilter.BLUR)
@@ -45,39 +54,44 @@ if __name__ == '__main__':
 		colormap.append(((r,g,b), eachfile))	
 		
 		file_count+=1
-		print "%.1f %% done" % ( (float(file_count) / total_files) * 100 )
+		log.debug("%.1f %% done" % ( (float(file_count) / total_files) * 100 ))
+	return colormap
 
-	print "[+] Color Index built"
-	
-	# ============================== Get user config =============================
-	zoom = 20
-	thumb_size = 60
 
-	print 'Enter zoom factor (=20) :',
-	try:
-		zoom = int(raw_input())
-	except:
-		'''taking default as 20'''
+def build_mosaic(input_path, output_path, collection_path, zoom=20, thumb_size=60, new_colormap=False):
+	log = logging.getLogger("PyMos")
+
+	# Build Color Index
+	log.info( "Building index...")
 	
-	print 'Enter thumbnail size (=60) :',
-	try:
-		thumb_size = int(raw_input())
-	except:
-		'''taking default as 60 '''
-		
+	files = glob.glob(os.path.join(collection_path, '*.jpg'))
+	total_files = len(files)
+	file_count = 0
+	colormap_file = os.path.join(collection_path, '.colormap')
+	if os.path.exists(colormap_file) and not new_colormap:
+		colormap = pickle.load(open(colormap_file))
+	else:
+		colormap = build_colormap(files)
+		pickle.dump(colormap, open(colormap_file, 'w'))
+	
+	log.info("Color Index built")
+	
 	# prepare images
-	sourceImage = Image.open ('./input.jpg')
+	sourceImage = Image.open (input_path)
 	sourceData = list(sourceImage.getdata())
 	source_width, source_height = sourceImage.size
 	output_width = source_width*zoom
 	output_height = source_height*zoom
 	
-	output = Image.new ( sourceImage.mode, (output_width,output_height),												
-                        (255,255,255) )
+	output = Image.new(sourceImage.mode,
+			   (output_width,output_height),
+			   (255,255,255)
+			   )
 
+	log.info("Generating Mosaic...")
 	# square mosaics as for now
-	for x in range(0, output_width, thumb_size):
-		for y in range(0, output_height, thumb_size):
+	for x in xrange(0, output_width, thumb_size):
+		for y in xrange(0, output_height, thumb_size):
 			source_color = sourceData[ (y*source_width + x) / zoom ]
 			
 			# euclidean distance, color, source
@@ -85,14 +99,6 @@ if __name__ == '__main__':
 		
 			for thumbs in colormap:
 				thumb_color, thumb_file = thumbs
-				'''
-				# poor matching algorithm ahead
-				if (abs( thumb_color[0] - source_color[0] ) < abs(match[0][0] - source_color[0]) and
-						abs( thumb_color[1] - source_color[1] ) < abs(match[0][1] - source_color[1]) and
-						abs( thumb_color[2] - source_color[2] ) < abs(match[0][2] - source_color[2])
-						):
-							match = (thumb_color,thumbs[1])
-				'''
 				# new matching method
 				# calculate the euclidian distance between the two colors by taking the 
 				# square root of the quantity 
@@ -109,7 +115,7 @@ if __name__ == '__main__':
 				r1,g1,b1 = source_color
 				r2,g2,b2 = thumb_color
 				r3,g3,b3 = match[1]
-				
+			
 				ecd_match = match[0]
 				ecd_found = math.sqrt ( (r2-r1)**2 + (g2-g1)**2 + (b2-b1)**2)
 				
@@ -117,19 +123,14 @@ if __name__ == '__main__':
 						match = (ecd_found,thumb_color,thumb_file)
 				
 			try:
-				small_image = Image.open(COLLECTION_PATH + match[2])
+				small_image = Image.open(match[2])
 				small_image = small_image.resize ((thumb_size,thumb_size),Image.BICUBIC)
 				output.paste (small_image,(x,y))	
 			except:
 				''' maybe nothing got matched! '''
 				
-		print "%.1f %% done" % ((float(x) / output_width)*100)
-		
-		# single line test
-		#output.show()
-		#raw_input()
+		log.debug("%.1f %% done" % ((float(x) / output_width)*100))
 
-	# final output
-	output.show()
-	output.save("./output.png", "PNG")
-
+	log.info("Mosaic Generated")		
+	output.save(output_path, "PNG")
+	log.info("Output File Written")

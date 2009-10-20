@@ -1,0 +1,39 @@
+#!/usr/bin/env python
+
+# Pandamonkium Productions present
+#                ____        __  ___          
+#               / __ \__  __/  |/  /___  _____
+#              / /_/ / / / / /|_/ / __ \/ ___/
+#             / ____/ /_/ / /  / / /_/ (__  ) 
+#            /_/    \__, /_/  /_/\____/____/  
+#                  /____/ 1.0
+#      
+#                                                      -- ideamonk and yuvipanda
+#                                                                 #hackers-india
+
+# Mosaic Generator using Python ( Diwali Night Hack )
+
+import argparse
+import logging
+
+from pymos import build_mosaic
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(prog="pymos", description="Creates mosaics of a collection of images to closely match a target image")
+    parser.add_argument("input", help="Input file")
+    parser.add_argument("output", help="Output file")
+    parser.add_argument("collection", help="Directory holding images to be mosaiced")
+    parser.add_argument("-z", "--zoom", default=20, type=int, help="Zoom Level")
+    parser.add_argument("-ts", "--thumbsize", default=60, type=int, help="Size of the thumbnails")
+    parser.add_argument("-v", "--verbose", action="store_true", help="Show verbose output")
+    parser.add_argument("-nc", "--new-colormap", action="store_true", help="Regenerate color map", default=False)
+    args = parser.parse_args()
+
+    logging.basicConfig()
+    log = logging.getLogger("PyMos")
+    if args.verbose:
+        log.setLevel(logging.DEBUG)
+    else:
+        log.setLevel(logging.INFO)
+        
+    build_mosaic(input_path=args.input, output_path=args.output, collection_path=args.collection, zoom=args.zoom, thumb_size=args.thumbsize, new_colormap=args.new_colormap)

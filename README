@@ -1,3 +1,14 @@
+Pandamonkium Productions present
+                ____        __  ___          
+               / __ \__  __/  |/  /___  _____
+              / /_/ / / / / /|_/ / __ \/ ___/
+             / ____/ /_/ / /  / / /_/ (__  ) 
+            /_/    \__, /_/  /_/\____/____/  
+                  /____/ 1.0
+      
+                                                       -- ideamonk and yuvipanda
+                                                                  #hackers-india
+        
 Hi, 
 
 I was bored so I had to write something quick...
@@ -12,18 +23,18 @@ How to make your own -
   how to - goto flickr.com search something, n.times do{ rightclick, save }
   run the script, let it work
   stare/zoom around output.png, show it to friends, feel k3wl
-  
-Have Fun
 
-                                                                    --ideamonk
-
+Then one night came YuviPanda and he hacked a little, hacked some more, and 
+hacked till sunrise to add most of the + on the todos
 
 TODO
   
     [+] get rid of spaghetti
     [+] improved color matching
         - euclidean distance FTW
-    [ ] More generic/re-usable code / driver-worker separation as i call it
-    [ ] make source_color average for a region if optimal
-    [ ] use pickle to avoid colormap regeneration, update when user desires
+    [+] More generic/re-usable code / driver-worker separation as we call it
+    [ ] make source_color average for a region if optimal / is slow
+    [+] use pickle to avoid colormap regeneration, update when user desires
+        + now it auto updates the cache
+    [ ] optimize by resize reduction - some DP to be done
 
