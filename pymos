@@ -13,6 +13,7 @@ if __name__ == '__main__':
     parser.add_argument("-z", "--zoom", default=20, type=int, help="Zoom Level")
     parser.add_argument("-ts", "--thumbsize", default=60, type=int, help="Size of the thumbnails")
     parser.add_argument("-v", "--verbose", action="store_true", help="Show verbose output")
+    parser.add_argument("-nc", "--new-colormap", action="store_true", help="Regenerate color map", default=False)
     args = parser.parse_args()
 
     logging.basicConfig()
@@ -22,4 +23,4 @@ if __name__ == '__main__':
     else:
         log.setLevel(logging.INFO)
         
-    build_mosaic(input_path=args.input, output_path=args.output, collection_path=args.collection, zoom=args.zoom, thumb_size=args.thumbsize)
+    build_mosaic(input_path=args.input, output_path=args.output, collection_path=args.collection, zoom=args.zoom, thumb_size=args.thumbsize, new_colormap=args.new_colormap)
