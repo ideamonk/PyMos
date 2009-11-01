@@ -39,16 +39,19 @@ def build_colormap(files):
 		imdata = list(im.getdata())
 		imdata_size = len(imdata)
 		
-		for i in imdata:
-			r += i[0]
-			g += i[1]
-			b += i[2]
+		try:
+			for i in imdata:
+				r += i[0]
+				g += i[1]
+				b += i[2]
 
-		# average the color of this thumbnail
-		r /= imdata_size
-		g /= imdata_size
-		b /= imdata_size
-		
+			# average the color of this thumbnail
+			r /= imdata_size
+			g /= imdata_size
+			b /= imdata_size
+		except:
+			''' '''
+
 		# append to colormap
 		colormap.append( ( (r,g,b), eachfile, None ))
 		# ^^ new format for colormap, None replaced with resized images
@@ -93,7 +96,7 @@ def build_mosaic(input_path, output_path, collection_path, zoom=20, thumb_size=6
 	# square mosaics as for now
 	for x in xrange(0, output_width, thumb_size):
 		for y in xrange(0, output_height, thumb_size):
-			source_color = sourceData[ (y*source_width + x) / zoom ]
+			source_color = sourceData[ (y/zoom) * source_width + x/zoom ]
 			
 			# euclidean distance, color, index in colormap
 			match = (555, (555,555,555), 0)# initially something out of range

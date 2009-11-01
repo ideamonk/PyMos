@@ -33,8 +33,14 @@ TODO
     [+] improved color matching
         - euclidean distance FTW
     [+] More generic/re-usable code / driver-worker separation as we call it
-    [ ] make source_color average for a region if optimal / is slow
     [+] use pickle to avoid colormap regeneration, update when user desires
         + now it auto updates the cache
-    [ ] optimize by resize reduction - some DP to be done
-
+    [+] optimize by resize reduction - some DP to be done
+    
+    [*] make source_color average for a region if optimal / is slow
+	    by doing a resize instead of color average
+	    [-] it didn't workout, resizing to 1x1 instead of taking average is fast
+	        but it lacks accuracy big time. as seen on http://twitpic.com/nuf5b
+	
+    [ ] multiprocessing
+    [ ] setup
