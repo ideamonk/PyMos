@@ -4,43 +4,39 @@ Pandamonkium Productions present
               / /_/ / / / / /|_/ / __ \/ ___/
              / ____/ /_/ / /  / / /_/ (__  ) 
             /_/    \__, /_/  /_/\____/____/  
-                  /____/ 1.0
+                  /____/ 0.5
       
                                                        -- ideamonk and yuvipanda
                                                                   #hackers-india
-        
-Hi, 
 
-I was bored so I had to write something quick...
+Purpose -
 
-I call it PyMos, I should've called it PyMosaic, but that sounds too long.
-
-It does something like this to input.jpg using collection/* as seen here - http://www.flickr.com/photos/ideamonk/4020798966/sizes/l/
-
-How to make your own -
-  grab some image, put it as input.jpg besides script
-  grab some matching color images, push them into collection, keep smalls images
-  how to - goto flickr.com search something, n.times do{ rightclick, save }
-  run the script, let it work
-  stare/zoom around output.png, show it to friends, feel k3wl
-
-Then one night came YuviPanda and he hacked a little, hacked some more, and 
-hacked till sunrise to add most of the + on the todos
-
-TODO
-  
-    [+] get rid of spaghetti
-    [+] improved color matching
-        - euclidean distance FTW
-    [+] More generic/re-usable code / driver-worker separation as we call it
-    [+] use pickle to avoid colormap regeneration, update when user desires
-        + now it auto updates the cache
-    [+] optimize by resize reduction - some DP to be done
+    PyMos is a Python module that helps you generate a mosaic poster of an image
+    using a desired collection of thumbnails.
     
-    [*] make source_color average for a region if optimal / is slow
-	    by doing a resize instead of color average
-	    [-] it didn't workout, resizing to 1x1 instead of taking average is fast
-	        but it lacks accuracy big time. as seen on http://twitpic.com/nuf5b
+    Some sample images can be seen here
+        
+        * http://www.flickr.com/photos/ideamonk/4020798966/sizes/m/
+        * http://www.flickr.com/photos/ideamonk/4026969049/sizes/l/
+        * http://www.flickr.com/photos/ideamonk/4064596012/
+
+Usage -
 	
-    [ ] multiprocessing
-    [ ] setup
+	1. As a command-line tool
+	
+		pymos [-h] [-z ZOOM] [-ts THUMBSIZE] [-v] [-nc] input output collection
+
+		positional arguments:
+		input                 Input file
+		output                Output file
+		collection            Directory holding images to be mosaiced
+
+		optional arguments:
+		  -h, --help            					show this help message and exit
+		  -z ZOOM, --zoom ZOOM  					Zoom Level
+		  -ts THUMBSIZE, --thumbsize THUMBSIZE
+		                        					Size of the thumbnails
+		  -v, --verbose         					Show verbose output
+		  -nc, --new-colormap   					Regenerate color map
+
+
