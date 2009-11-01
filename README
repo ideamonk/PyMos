@@ -64,6 +64,11 @@ Usage -
             can fire pymos with -nc option to generate a new colormap which would
             include the newly added images.
 
+        *   How to make a collection of images ?
+            Well its upto you. We just saved some random thumnails from flickr.
+            You could use twitter API as well to fetch display pics of your friends
+            and make a mosaic using your followers :)
+
 
     2. As a library -
 
