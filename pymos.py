@@ -40,16 +40,19 @@ def build_colormap(files):
 		imdata = list(im.getdata())
 		imdata_size = len(imdata)
 		
-		for i in imdata:
-			r += i[0]
-			g += i[1]
-			b += i[2]
+		try:
+			for i in imdata:
+				r += i[0]
+				g += i[1]
+				b += i[2]
 
-		# average the color of this thumbnail
-		r /= imdata_size
-		g /= imdata_size
-		b /= imdata_size
-		
+			# average the color of this thumbnail
+			r /= imdata_size
+			g /= imdata_size
+			b /= imdata_size
+		except:
+			''' '''
+
 		# append to colormap
 		colormap.append( ( (r,g,b), eachfile, None ))
 		# ^^ new format for colormap, None replaced with resized images
