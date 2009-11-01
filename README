@@ -33,10 +33,70 @@ Usage -
 
 		optional arguments:
 		  -h, --help            					show this help message and exit
-		  -z ZOOM, --zoom ZOOM  					Zoom Level
+		  -z ZOOM, --zoom ZOOM  					Zoom Level (20)
 		  -ts THUMBSIZE, --thumbsize THUMBSIZE
-		                        					Size of the thumbnails
+		                        					Size of the thumbnails (60)
 		  -v, --verbose         					Show verbose output
 		  -nc, --new-colormap   					Regenerate color map
 
+	
+	Notes:
+		
+		* 	Input files can be any standard image file supported by 
+			PIL (Python Imaging Library) 1.1.6+
 
+		* 	a collection is just any folder that has many small images to build up
+			the mosaic
+
+		*	ZOOM is the number of times input file is enlarged to make the output 
+			file. Eg if input file is 800x600, a zoom of 10 would give you 8000x6000
+
+		*	THUMBSIZE is the size of small pieces that would compose the output image.
+
+		*	A colormap is generated and stored for a collection (directory) in order
+			to save time in regeneration. If you add new images to a collection, you
+			can fire pymos with -nc option to generate a new colormap which would
+			include the newly added images.
+
+
+	2. As a library -
+
+        Example #1 Storing to a file
+
+          from pymos.core import build_mosaic
+
+          build_mosaic(
+                input_path="foo.jpg",
+                output_path="bar.png",
+                collection_path="/tmp/apples",
+                zoom=20,
+                thumb_size=100,
+                new_colormap=False
+          )
+		
+        Example #1 Getting back an image
+
+          from pymos.core import build_mosaic
+
+          foo = build_mosaic(
+                input_path="foo.jpg",
+                output_path=None,                          # notice the None here
+                collection_path="/tmp/apples",
+                zoom=20,
+                thumb_size=100,
+                new_colormap=False
+          )
+
+          foo.show()
+
+
+Feedback -
+
+    Did PyMos fail over something?
+      Do let us know.
+
+    Do you wish to report a big? a feedback perhaps?
+      Why don't you raise an issue on project page - http://github.com/ideamonk/PyMos/issues
+
+    Or do you wish to make changes to suit it to your needs?
+      Fork it baby - http://github.com/ideamonk/PyMos
