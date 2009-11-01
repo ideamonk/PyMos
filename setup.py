@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from ez_setup import use_setuptools
 use_setuptools()
 
@@ -9,5 +10,5 @@ setup(name='PyMos',
       version='0.5',
       packages=['pymos'],
       scripts=['bin/pymos'],
-      install_requires=['PIL', 'argparse']
+      install_requires=['argparse']
       )
