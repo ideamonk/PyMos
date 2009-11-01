@@ -7,7 +7,7 @@ PyMos 0.5
     [+] use pickle to avoid colormap regeneration, update when user desires
         + now it auto updates the cache
     [+] optimize by resize reduction - some DP to be done
-    [ ] More library fication, return Images too
+    [+] More library fication, return Images too
     [+] setup
     
     Sun Nov  1 17:42:17 IST 2009
