@@ -34,6 +34,7 @@ TODO
         - euclidean distance FTW
     [+] More generic/re-usable code / driver-worker separation as we call it
     [ ] make source_color average for a region if optimal / is slow
+	by doing a resize instead of color average
     [+] use pickle to avoid colormap regeneration, update when user desires
         + now it auto updates the cache
     [+] optimize by resize reduction - some DP to be done
