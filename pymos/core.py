@@ -11,7 +11,7 @@
 #                                                      -- ideamonk and yuvipanda
 #                                                                 #hackers-india
 
-# Mosaic Generator using Python ( Diwali Night Hack )
+# Mosaic Generator using Python
 
 import Image, ImageFilter
 import os, sys, math, random
