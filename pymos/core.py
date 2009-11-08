@@ -130,19 +130,24 @@ def build_mosaic(input_path, output_path, collection_path, zoom=20,
                     colormap[match[2]] = (colormap[match[2]][0],
                         colormap[match[2]][1],Image.open(colormap[match[2]][1]))
 
-                colormap[match[2]][2].thumbnail ( (thumb_size,thumb_size), Image.BICUBIC )
+                ### new maxfill method
                 tsize = colormap[match[2]][2].size
-                
-                im = Image.new ("RGB", (thumb_size,thumb_size), (255,255,255))
-                #im = Image.new ("RGB", (thumb_size,thumb_size), source_color)
-                
-                im.paste (colormap[match[2]][2], (
-                            random.randint(0,thumb_size - tsize[0]),
-                            random.randint(0,thumb_size - tsize[1])
-                        )
-                    )
-                
-                output.paste (im, (x, y))
+
+                if ( tsize[0] > tsize[1]):
+                    # wider image -> fill height of thumb_sizexthumb_size square
+                    tsize =  (
+                                int( round( ( float(tsize[0])/tsize[1] ) * thumb_size ) ),
+                                thumb_size
+                                )
+                else:
+                    # taller image -> fille width to complete square
+                    tsize =  (
+                                thumb_size,
+                                int( round( ( float(tsize[1])/tsize[0] ) * thumb_size ) )
+                                )
+
+                output.paste (colormap[match[2]][2].resize (tsize), (x, y))
+
             except:
                 ''' maybe nothing got matched! '''
 
