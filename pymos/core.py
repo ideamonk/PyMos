@@ -130,9 +130,17 @@ def build_mosaic(input_path, output_path, collection_path, zoom=20,
                     colormap[match[2]] = (colormap[match[2]][0],
                         colormap[match[2]][1],Image.open(colormap[match[2]][1]))
 
-                    colormap[match[2]] = (colormap[match[2]][0], colormap[match[2]][1],colormap[match[2]][2].resize ((thumb_size,thumb_size),Image.BICUBIC) )
-
-                output.paste (colormap[match[2]][2],(x,y))
+                colormap[match[2]][2].thumbnail ( (thumb_size,thumb_size), Image.BICUBIC )
+                tsize = colormap[match[2]][2].size
+                
+                im = Image.new ("RGB", (thumb_size,thumb_size), (255,255,255))
+                im.paste (colormap[match[2]][2], (
+                            int( round( (thumb_size - tsize[0])/float(2) ) ),
+                            int( round( (thumb_size - tsize[1])/float(2) ) )
+                        )
+                    )
+                
+                output.paste (im, (x, y))
             except:
                 ''' maybe nothing got matched! '''
 
