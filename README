@@ -30,7 +30,10 @@ Usage -
 
     1. As a command-line tool
 
-        pymos [-h] [-z ZOOM] [-ts THUMBSIZE] [-v] [-nc] input output collection
+        pymos [-h] [-z ZOOM] [-ts THUMBSIZE] [-f FUZZFACTOR] [-v] [-nc]
+                    input output collection
+
+        Creates mosaics of a collection of images to closely match a target image
 
         positional arguments:
         input                 Input file
@@ -38,12 +41,14 @@ Usage -
         collection            Directory holding images to be mosaiced
 
         optional arguments:
-        -h, --help            					show this help message and exit
-        -z ZOOM, --zoom ZOOM  					Zoom Level (20)
+        -h, --help            show this help message and exit
+        -z ZOOM, --zoom ZOOM  Zoom Level (20)
         -ts THUMBSIZE, --thumbsize THUMBSIZE
-                                                    Size of the thumbnails (60)
-        -v, --verbose         					Show verbose output
-        -nc, --new-colormap   					Regenerate color map
+                                Size of the thumbnails (60)
+        -f FUZZFACTOR, --fuzzfactor FUZZFACTOR
+                                Amount of randomness in ouput (0)
+        -v, --verbose         Show verbose output
+        -nc, --new-colormap   Regenerate color map
 
 
     Notes:

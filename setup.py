@@ -7,13 +7,13 @@ setup(name='PyMos',
       description='Python Mosaic Generator',
       author='Abhishek Mishra (ideamonk), Yuvi (yuvipanda)',
       author_email='ideamonk@gmail.com, me@yuvi.in',
-      version='0.5',
-      packages=['pymos'],
+      version='0.51',
+      #packages=['pymos'],
       scripts=['bin/pymos'],
       install_requires=['argparse'],
       license = "BSD",
       # Thats how Apple was able to take OpenBSD, make Mac OS X :)
       # http://bheekly.blogspot.com/2007/08/what-is-free.html
       keywords = "mosaic imaging graphics poster",
-      url = "http://github.com/ideamonk/PyMos/"
+      url = "http://cloud.github.com/downloads/ideamonk/PyMos/PyMos_0.5.tar.gz"
       )

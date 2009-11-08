@@ -63,8 +63,8 @@ def build_colormap(files):
     return colormap
 
 
-def build_mosaic(input_path, output_path, collection_path, zoom=20,
-                                            thumb_size=60, new_colormap=False):
+def build_mosaic(input_path, output_path, collection_path, zoom=20, 
+                                            thumb_size=60, fuzz=5, new_colormap=False):
 
     log = logging.getLogger("PyMos")
 
@@ -104,7 +104,10 @@ def build_mosaic(input_path, output_path, collection_path, zoom=20,
     for x in xrange(0, output_width, thumb_size):
         for y in xrange(0, output_height, thumb_size):
             source_color = sourceData[ (y/zoom) * source_width + x/zoom ]
-
+            
+            # we randomize source color for added fuziness
+            source_color = tuple(map (lambda x: x + random.randint(-fuzz,fuzz), source_color))
+            
             # euclidean distance, color, index in colormap
             match = (555, (555,555,555), 0)# initially something out of range
 
