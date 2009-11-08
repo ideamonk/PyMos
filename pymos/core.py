@@ -135,9 +135,10 @@ def build_mosaic(input_path, output_path, collection_path, zoom=20,
                 
                 im = Image.new ("RGB", (thumb_size,thumb_size), (255,255,255))
                 #im = Image.new ("RGB", (thumb_size,thumb_size), source_color)
+                
                 im.paste (colormap[match[2]][2], (
-                            int( round( (thumb_size - tsize[0])/float(2) ) ),
-                            int( round( (thumb_size - tsize[1])/float(2) ) )
+                            random.randint(0,thumb_size - tsize[0]),
+                            random.randint(0,thumb_size - tsize[1])
                         )
                     )
                 
