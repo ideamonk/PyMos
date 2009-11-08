@@ -78,8 +78,12 @@ def build_mosaic(input_path, output_path, collection_path, zoom=20,
     if os.path.exists(colormap_file) and not new_colormap:
         colormap = pickle.load(open(colormap_file))
     else:
-        colormap = build_colormap(files)
-        pickle.dump(colormap, open(colormap_file, 'w'))
+        try:
+            colormap = build_colormap(files)
+            pickle.dump(colormap, open(colormap_file, 'w'))
+        except:
+            log.info( "Error: Collection not found.")
+            sys.exit(1)
 
     log.info("Color Index built")
 
