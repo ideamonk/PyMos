@@ -1,0 +1,17 @@
+ideamonk@rocksolid:/disk/code/mosaic$ pymos -ts 100 why.jpg why.png -f 20 ../yuvi/news/ -v > bug1.txt
+INFO:PyMos:Building index...
+INFO:PyMos:Color Index built
+INFO:PyMos:Generating Mosaic...
+Traceback (most recent call last):
+  File "/usr/local/bin/pymos", line 5, in <module>
+    pkg_resources.run_script('PyMos==0.6', 'pymos')
+  File "/usr/lib/python2.6/dist-packages/pkg_resources.py", line 448, in run_script
+    self.require(requires)[0].run_script(script_name, ns)
+  File "/usr/lib/python2.6/dist-packages/pkg_resources.py", line 1173, in run_script
+    exec script_code in namespace, namespace
+  File "/usr/local/lib/python2.6/dist-packages/PyMos-0.6-py2.6.egg/EGG-INFO/scripts/pymos", line 59, in <module>
+
+  File "build/bdist.linux-i686/egg/pymos/core.py", line 130, in build_mosaic
+  File "/usr/lib/python2.6/dist-packages/PIL/Image.py", line 1889, in open
+    fp = __builtin__.open(fp, "rb")
+IOError: [Errno 2] No such file or directory: './news/315332425_7f2853f126_m.jpg'
