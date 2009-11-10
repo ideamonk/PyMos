@@ -1,0 +1,209 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+    <title>PyMos - make beautiful mosaics on the fly</title>
+    
+	<link rel=StyleSheet href="style.css" type="text/css" media=screen>
+    <script type='text/javascript' src='jq.js'></script>
+</head>
+
+<body>
+<div id="header">
+    <div id="centerrific">
+        <a href="index.html">
+            <img src="images/logo.jpg"/>
+        </a>
+        <p class="slogan">
+            Creating Mosaics of your favourite photos was never easier...
+        </p>
+    </div>
+</div>
+
+<div id="content">
+    <div class="nav">
+        <a href="index.html">home</a>
+        <a href="guide.html">PyMos guide</a>
+        <a href="http://github.com/ideamonk/PyMos/downloads">downloads</a>
+        <a href="http://github.com/ideamonk/PyMos/">source</a>
+        <a href="http://github.com/ideamonk/PyMos/issues">feedback</a>
+        <a href="about.html">about</a>
+    </div>
+
+    <div class="text">
+    <div class="textclose">
+        <h2>PyMos Guide (Unix/Linux)</h2>
+        <br/>
+        <div class="nav">
+            <a href="#getting">getting it</a>
+            <a href="#cmdline">command-line tool</a>
+            <a href="#code">in your code</a>
+        </div>
+        <div class="textclose">
+            PyMos is a Python module/tool that helps you generate a mosaic poster of an image
+            using a desired collection of thumbnails. By collection we refer to a directory
+            where many thumbnail/images to be used as substitute are stored.
+        </div>
+        </p>
+        <br/>
+        <a name="getting">&nbsp;</a>
+        <br/>
+        <h3>Getting PyMos</h3>
+
+        <h4>Step 1</h4>
+        <div class="minitext">
+            Grab the latest version from downloads.<br/>
+            <pre>$ wget http://cloud.github.com/downloads/ideamonk/PyMos/PyMos-0.6.zip </pre>
+        </div>
+
+        
+        <h4>Step 2</h4>
+        <div class="minitext">
+            Extract the files.<br/>
+            <pre>$ unzip PyMos-0.6.zip -d PyMos-0.6</pre>
+        </div>
+
+        <h4>Step 3</h4>
+        <div class="minitext">
+            Install dependencies<br/>
+            <pre>
+$ sudo easy_install pil </pre>
+            on Ubuntu you can simply do this instead -
+            <pre>$$ sudo apt-get install python-imaging</pre>
+        </div>
+
+        <h4>Step 4</h4>
+        <div class="minitext">
+        
+            Install PyMos<br/>
+            <pre>$ cd PyMos-0.6
+$ sudo python setup.py install</pre>
+            Test it - <br/>
+            <pre>$ pymos
+usage: pymos [-h] [-z ZOOM] [-ts THUMBSIZE] [-f FUZZFACTOR] [-v] [-nc]
+             input output collection
+pymos: error: too few arguments</pre>
+        </div>
+
+        <br/>
+        <a name="cmdline">&nbsp;</a>
+        <br/>
+        
+        <h3>Using PyMos</h3>
+        <h4>As a command-line tool</h4>
+        <div class="minitext">
+        <pre>
+pymos [-h] [-z ZOOM] [-ts THUMBSIZE] [-f FUZZFACTOR] [-v] [-nc]
+                    input output collection
+
+        Creates mosaics of a collection of images to closely match a target image
+
+        positional arguments:
+        input                 Input file
+        output                Output file
+        collection            Directory holding images to be mosaiced
+
+        optional arguments:
+        -h, --help            show this help message and exit
+        -z ZOOM, --zoom ZOOM  Zoom Level (20)
+        -ts THUMBSIZE, --thumbsize THUMBSIZE
+                                Size of the thumbnails (60)
+        -f FUZZFACTOR, --fuzzfactor FUZZFACTOR
+                                Amount of randomness in ouput (0)
+        -v, --verbose         Show verbose output
+        -nc, --new-colormap   Regenerate color map
+
+
+    Notes:
+
+        *   Input files can be any standard image file supported by
+            PIL (Python Imaging Library) 1.1.6+
+
+        *   a collection is just any folder that has many small images to build up
+            the mosaic
+
+        *   ZOOM is the number of times input file is enlarged to make the output
+            file. Eg if input file is 800x600, a zoom of 10 would give you 8000x6000
+
+        *   THUMBSIZE is the size of small pieces that would compose the output image.
+
+        *   A colormap is generated and stored for a collection (directory) in order
+            to save time in regeneration. If you add new images to a collection, you
+            can fire pymos with -nc option to generate a new colormap which would
+            include the newly added images.
+
+        *   How to make a collection of images ?
+            Well its upto you. We just saved some random thumnails from flickr.
+            You could use twitter API as well to fetch display pics of your friends
+            and make a mosaic using your followers :)
+            
+        *   What is fuzzfactor ?
+            Fuzzfactor is the randomness in output color you wish to have. At times
+            due to lack of shades in your collection, you might find huge areas in
+            output uniformly filled with same thumbnail. To avoid that effect, try
+            putting a fuzz of 20, etc. Default value for fuzz is 0.
+            </pre>
+            <br/>
+            <strong>Example -</strong>
+            Lets say I have collected many photos of people in ./people
+            <br/>
+            and I have myface.jpg which I wish to mosaic, I can go about in this manner -
+            <br/>
+            <pre>$ pymos myface.jpg output.png ./people/  </pre>
+            It would give me a mosaic in output.png, I can also play with parameters like this -
+            <br/>
+            <pre>$ pymos myface.jpg output.png ./people/ -ts 100 -z 30 -f 20 -v</pre>
+            This would give me a more verbose debug log, thumb size would be 100px, and original image zoomed by 30x, <br/>
+            along with a fuzz factor of 20 in colors of output.
+            
+        </div>
+        <br/>
+        <a name="code">&nbsp;</a>
+        <br/>
+        <h4>In your Python Code</h4>
+        <div class="minitext">
+            <strong>Storing to a file -</strong><br/>
+            <pre>>>> from pymos.core import build_mosaic
+
+>>> build_mosaic(
+        input_path="foo.jpg",
+        output_path="bar.png",
+        collection_path="/tmp/apples",
+        zoom=20,
+        thumb_size=100,
+        fuzz=0,
+        new_colormap=False
+)</pre>
+        <br/>
+        <strong>Getting back an image -</strong><br/>
+            <pre>>>> from pymos.core import build_mosaic
+
+>>> foo = build_mosaic(
+        input_path="foo.jpg",
+        output_path=None,                          # notice the None here
+        collection_path="/tmp/apples",
+        zoom=20,
+        thumb_size=100,
+        fuzz=0,
+        new_colormap=False
+)
+
+>>> foo.show()</pre>
+        </div>
+    </div>
+    </div>
+</div>
+
+<div id="footer">
+    <span style="display:block; height:40px"></span>
+    <p>&copy; Abhishek Mishra and Yuvi Panda [2009:]</p>
+</div>
+<!--
+Web design by Abhishek Mishra < ideamonk at gmail.com >
+Have some web-dev/design work? checkout our website - http://w3ninjas.com    
+-->
+</body>
+</html>

@@ -38,6 +38,14 @@ h2 {
     font-family: "Myndraine";
     margin-bottom:5px;
 }
+h3 {
+    margin-top:10px;
+    padding-left:10px;
+}
+h4 {
+    margin-top:5px;
+    padding-left:20px;
+}
 
 #content {
     width: 800px;
@@ -137,6 +145,22 @@ h2 {
 .text a {
     color: #ffff99;
     border-bottom:1px dotted #ffffff;
+}
+.text .minitext {
+    padding-left: 40px;
+}
+.text .minitext pre{
+    padding:5px;
+    color: #00ff00;
+    background-color:#000;
+    margin:5px;
+    margin-right:60px;
+    font-family: Consolas, Monospace, Monaco, "Courier New";
+    font-size:0.9em;
+}
+.textclose .nav a{
+    text-decoration:none;
+    border:0px;
 }
 
 #footer {
