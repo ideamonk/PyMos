@@ -4,8 +4,29 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	<title>PyMos - make beautiful mosaics on the fly</title>
+
+    <title>PyMos - make beautiful mosaics on the fly</title>
+    
 	<link rel=StyleSheet href="style.css" type="text/css" media=screen>
+    <script type='text/javascript' src='jq.js'></script>
+
+    <script language='javascript'>
+        var fooFlipper = 1;
+        
+        $(document).ready( function() {
+            setInterval ('rollItBaby()',5000);
+        });
+
+        function rollItBaby() {
+            if (fooFlipper == 1) {
+                $('#show2').stop().fadeTo(400,0);
+                fooFlipper = 2;
+            } else {
+                $('#show2').stop().fadeTo(400,1);
+                fooFlipper = 1;
+            }
+        }
+    </script>
 </head>
 
 <body>
@@ -22,16 +43,16 @@
 
 <div id="content">
     <div class="nav">
-        <a href="/">home</a>
-        <a href="/">home</a>
-        <a href="/">home</a>
+        <a href="http://ideamonk.github.com/PyMos">home</a>
+        <a href="#">PyMos guide</a>
+        <a href="http://github.com/ideamonk/PyMos/downloads">downloads</a>
+        <a href="http://github.com/ideamonk/PyMos/">source</a>
+        <a href="#">about</a>
     </div>
     <div id="demo">
         <div id="show1">
-            <img src="images/show1.jpg"/>
-        </div>
-        <div id="show2">
-            <img src="images/show2.jpg"/>
+            <div id="show2">
+            </div>
         </div>
     </div>
 </div>

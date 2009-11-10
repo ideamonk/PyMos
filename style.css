@@ -64,27 +64,54 @@ a {
 
 .nav {
     width: 100%;
-    font-family: "Ubuntu", verdana, arial, georgia, serif;
-    font-size: 1.8em;
-    text-align:center;
-    padding-bottom:5px;
+    font-family: "Ubuntu", monaco, monospace, verdana, arial, georgia, serif;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: center;
+    padding-bottom: 5px;
+    margin-bottom: 40px;
 }
 
 .nav a {
-    background: #97C8FE;
-    color: #012B67;
-    padding: 0px 15px;
+    /*background: #97C8FE;
+    color: #012B67;*/
+    padding: 5px 15px;
     margin-right: 10px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    -moz-box-shadow: 0 1px 3px #000;
-    -webkit-box-shadow: 0 1px 3px #000;
-    text-shadow: 0 2px 2px rgba(0,0,0,0.25);
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-box-shadow: 0 1px 10px #000;
+    -webkit-box-shadow: 0 5px 5px #000;
 }
 .nav a:hover {
+    background: #012B67;
     color: #ffffff;
-
+    text-shadow: 0 2px 2px rgba(69,187,255,0.25);
+    -moz-box-shadow: 0 1px 10px #fff;
+    -webkit-box-shadow: 0 1px 10px #fff;
 }
+
+#demo {
+    display:block;
+    width:100%;
+    height:250px;
+    -moz-box-shadow: 0 10px 50px #000;
+    -webkit-box-shadow: 0 10px 50px #000;
+}
+
+#show1 {
+    width:800px;
+    height:250px;
+    background: url(images/show1.jpg) no-repeat;
+    margin:0px auto;
+}
+
+#show2 {
+     width:800px;
+    height:250px;
+    background: url(images/show2.jpg) no-repeat;
+    margin:0px auto;
+}
+
 
 #footer {
 }
