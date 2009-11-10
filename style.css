@@ -34,6 +34,11 @@ a {
     text-decoration: none;
 }
 
+h2 {
+    font-family: "Myndraine";
+    margin-bottom:5px;
+}
+
 #content {
     width: 800px;
     margin: 0px auto;
@@ -65,11 +70,11 @@ a {
 .nav {
     width: 100%;
     font-family: "Ubuntu", monaco, monospace, verdana, arial, georgia, serif;
-    font-size: 1.5em;
-    font-weight: bold;
+    font-size: 1.3em;
+    /*font-weight: bold;*/
     text-align: center;
     padding-bottom: 5px;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
 }
 
 .nav a {
@@ -94,8 +99,9 @@ a {
     display:block;
     width:100%;
     height:250px;
-    -moz-box-shadow: 0 10px 50px #000;
-    -webkit-box-shadow: 0 10px 50px #000;
+    -moz-box-shadow: 0 10px 40px #000;
+    -webkit-box-shadow: 0 10px 40px #000;
+    margin-bottom: 50px;
 }
 
 #show1 {
@@ -106,12 +112,39 @@ a {
 }
 
 #show2 {
-     width:800px;
+    width:800px;
     height:250px;
     background: url(images/show2.jpg) no-repeat;
     margin:0px auto;
 }
 
+.text {
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-box-shadow: 0 1px 10px #000;
+    -webkit-box-shadow: 0 5px 5px #000;
+    background: url(images/topshade.png) top center no-repeat;
+}
+
+.textclose {
+    display:block;
+    margin: 10px; padding: 40px 20px;
+    font-family: "junction", verdana, arial, serif;
+    line-height: 1.6em;
+    background: url(images/bottomshade.png) bottom center no-repeat;
+}
+
+.text a {
+    color: #ffff99;
+    border-bottom:1px dotted #ffffff;
+}
 
 #footer {
+    margin-top: 40px;
+    background: url(images/pandamonkium.png) bottom right no-repeat;
+    height: 60px;
+    text-align: center;
+    font-size: 0.8em;
+    clear: both;
+    display: block;
 }
