@@ -72,13 +72,13 @@ h4 {
     float: right;
     margin-right: 20px;
     margin-top: 50px;
-    font-size: 1.4em;
+    font-size: 1.2em;
 }
 
 .nav {
     width: 100%;
     font-family: "Ubuntu", monaco, monospace, verdana, arial, georgia, serif;
-    font-size: 1.3em;
+    font-size: 1.2em;
     /*font-weight: bold;*/
     text-align: center;
     padding-bottom: 5px;
