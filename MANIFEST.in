@@ -1,0 +1,6 @@
+include AUTHORS
+include LICENSE
+include HISTORY
+include TODO
+include ez_setup.py
+
