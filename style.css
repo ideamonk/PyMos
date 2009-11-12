@@ -93,7 +93,7 @@ h4 {
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     -moz-box-shadow: 0 1px 10px #000;
-    -webkit-box-shadow: 0 5px 5px #000;
+    -webkit-box-shadow: 0 1px 10px #000;
 }
 .nav a:hover {
     background: #012B67;
@@ -130,7 +130,7 @@ h4 {
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     -moz-box-shadow: 0 1px 10px #000;
-    -webkit-box-shadow: 0 5px 5px #000;
+    -webkit-box-shadow: 0 1px 10px #000;
     background: url(images/topshade.png) top center no-repeat;
 }
 
