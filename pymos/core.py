@@ -14,7 +14,7 @@
 ''' PyMos - A mosaic generator module '''
 
 import Image
-import os, sys, math, random
+import os, sys, random
 import logging
 import glob
 
@@ -117,9 +117,9 @@ def build_mosaic(input_path, output_path, collection_path,
                 r_2, g_2, b_2 = thumb_color
 
                 ecd_match = match[0]
-                ecd_found = math.sqrt ( (r_2 - r_1) ** 2 +
-                                        (g_2 - g_1) ** 2 +
-                                        (b_2-b_1) ** 2 )
+                ecd_found = ( (r_2 - r_1) ** 2 + (g_2 - g_1) ** 2 +
+                                (b_2-b_1) ** 2 ) ** 0.5             # faster!
+                                # as fast as 30 sec gain in processing :)
 
                 if (ecd_found < ecd_match):
                     match = (ecd_found, thumb_color, index)
