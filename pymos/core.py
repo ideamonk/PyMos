@@ -118,9 +118,8 @@ def build_mosaic(input_path, output_path, collection_path,
 
                 ecd_match = match[0]
                 ecd_found = ( (r_2 - r_1) ** 2 + (g_2 - g_1) ** 2 +
-                                (b_2-b_1) ** 2 ) ** 0.5             # faster!
-                                # as fast as 30 sec gain in processing :)
-
+                                (b_2-b_1) ** 2 )
+                                
                 if (ecd_found < ecd_match):
                     match = (ecd_found, thumb_color, index)
 
@@ -145,7 +144,7 @@ def build_mosaic(input_path, output_path, collection_path,
                         thumb_size
                     )
 
-                output.paste (colormap[match[2]][2].resize (tsize), (s_x, s_y))
+                output.paste (colormap[match[2]][2].resize (tsize).rotate(random.randint(-10,10)), (s_x, s_y))
 
             except ValueError:
                 log.debug ("No match for " + source_color)
