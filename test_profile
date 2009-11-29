@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# just a small script to do quick profiling
+# keep a thumbs directory in ./sandbox, and a test.jpg as input
+# profiles are stored in ./profiles
+
+# Eg. $ time ./test_profile ./profiles/nosqrt
+
+#                                                          ideamonk at gmail.com
+
+time python -m profile -o $1 ./test -ts 120 ./sandbox/test.jpg ./sandbox/test.png ./sandbox/thumbs/ -nc

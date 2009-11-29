@@ -1,0 +1,22 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+# Shows profiling stats
+# Eg. $ ./show_prof ./profiles/profile_nosqr 45
+#                                                          ideamonk at gmail.com
+
+import pstats
+import sys
+
+try:
+    stats = pstats.Stats(sys.argv[1])
+    num = 20
+    try:
+        num = int(sys.argv[2])
+    except:
+        ''' no problemo :) '''
+
+    stats.strip_dirs().sort_stats("cumulative").print_stats(num)
+    
+except:
+    print "Usage - %s profile_file <num_lines>" % (sys.argv[0])
