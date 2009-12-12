@@ -40,9 +40,14 @@ def build_colormap(files):
 
         try:
             for i in imdata:
-                red += i[0]
-                green += i[1]
-                blue += i[2]
+                if cmp(type(i).__name__, 'int') == 0:
+                    red += i
+                    green += i
+                    blue += i
+                else:
+                    red += i[0]
+                    green += i[1]
+                    blue += i[2]
 
             # average the color of this thumbnail
             red /= imdata_size
