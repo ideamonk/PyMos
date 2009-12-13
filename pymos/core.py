@@ -35,8 +35,12 @@ def build_colormap(files):
         temp = Image.open(eachfile)
 
         red = green = blue = 0
-        imdata = list(temp.getdata())
-        imdata_size = len(imdata)
+        try:
+            imdata = list(temp.getdata())
+            imdata_size = len(imdata)
+        except:
+            log.debug ("Error processing " + eachfile)
+            continue
 
         try:
             for i in imdata:
@@ -83,12 +87,13 @@ def build_mosaic(input_path, output_path, collection_path,
     if os.path.exists(colormap_file) and not new_colormap:
         colormap = pickle.load(open(colormap_file))
     else:
-        try:
-            colormap = build_colormap(files)
-            pickle.dump(colormap, open(colormap_file, 'w'))
-        except IOError:
-            log.info( "Error: Collection not found.")
-            sys.exit(1)
+        #try:
+        colormap = build_colormap(files)
+        pickle.dump(colormap, open(colormap_file, 'w'))
+        #except IOError:
+        #    log.info( "Error: Collection not found.")
+        #    sys.exit(1)
+		# this exception might cause it to break even at x% of colormap build
 
     log.info("Color Index built")
 
@@ -111,8 +116,11 @@ def build_mosaic(input_path, output_path, collection_path,
             if (fuzz!=0):
                 source_color = tuple(s_x + random.randint(-fuzz, fuzz)
                                         for s_x in source_color)
-
-            r_1, g_1, b_1 = source_color
+                                        
+            if cmp(type(source_color).__name__, 'int') == 0:
+                r_1 = g_1 = b_1 = source_color
+            else:
+                r_1, g_1, b_1 = source_color
             
             # euclidean distance, color, index in colormap
             match = (196608, (555, 555, 555), 0)# initially something out of range
