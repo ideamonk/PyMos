@@ -114,7 +114,10 @@ def build_mosaic(input_path, output_path, collection_path,
             
             # we randomize source color for added fuziness
             if (fuzz!=0):
-                source_color = tuple(s_x + random.randint(-fuzz, fuzz)
+                if cmp(type(source_color).__name__, 'int') == 0:
+                    source_color = random.randint(-fuzz, fuzz) + source_color
+                else:
+                    source_color = tuple(s_x + random.randint(-fuzz, fuzz)
                                         for s_x in source_color)
                                         
             if cmp(type(source_color).__name__, 'int') == 0:
