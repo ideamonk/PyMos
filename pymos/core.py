@@ -32,7 +32,11 @@ def build_colormap(files):
     total_files = len(files)
     log = logging.getLogger("PyMos")
     for eachfile in files:
-        temp = Image.open(eachfile)
+	try:
+            temp = Image.open(eachfile)
+	except IOError:
+	    log.debug("Error opening %s" % eachfile)
+	    continue
 
         red = green = blue = 0
         try:

@@ -1,1 +1,59 @@
-bin/pymos
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# Pandamonkium Productions present
+#                ____        __  ___
+#               / __ \__  __/  |/  /___  _____
+#              / /_/ / / / / /|_/ / __ \/ ___/
+#             / ____/ /_/ / /  / / /_/ (__  )
+#            /_/    \__, /_/  /_/\____/____/
+#                  /____/ 0.5
+#
+#                                                      -- ideamonk and yuvipanda
+#                                                                 #hackers-india
+
+# Mosaic Generator using Python
+
+''' pymos command line utility to generate mosaics'''
+
+import sys, logging
+
+try:
+    import argparse
+except ImportError:
+    print "argparse required but missing"
+    sys.exit(1)
+
+from pymos.core import build_mosaic
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(prog="pymos",
+            description = "Creates mosaics of a collection of images to \
+            closely match a target image")
+
+    parser.add_argument("input", help="Input file")
+    parser.add_argument("output", help="Output file")
+    parser.add_argument("collection",
+                              help="Directory holding images to be mosaiced")
+    parser.add_argument("-z", "--zoom", default=20, type=int,
+                                            help="Zoom Level (20)")
+    parser.add_argument("-ts", "--thumbsize", default=60,
+                           type=int, help="Size of the thumbnails (60)")
+    parser.add_argument("-f", "--fuzzfactor", default=0,
+                    type=int, help="Amount of randomness in output (0)")
+    parser.add_argument("-v", "--verbose",
+                        action="store_true", help="Show verbose output")
+    parser.add_argument("-nc", "--new-colormap", action="store_true",
+                                help="Regenerate color map", default=False)
+    args = parser.parse_args()
+
+    logging.basicConfig()
+    log = logging.getLogger("PyMos")
+    if args.verbose:
+        log.setLevel(logging.DEBUG)
+    else:
+        log.setLevel(logging.INFO)
+    print args.fuzzfactor
+    build_mosaic(input_path=args.input, output_path=args.output,
+                collection_path=args.collection, zoom=args.zoom,
+                    thumb_size=args.thumbsize, fuzz=args.fuzzfactor,
+                        new_colormap=args.new_colormap)
