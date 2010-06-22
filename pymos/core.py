@@ -102,8 +102,13 @@ def build_mosaic(input_path, output_path, collection_path,
     log.info("Color Index built")
 
     # prepare images
-    source = Image.open (input_path)
-    source_data = list(source.getdata())
+    try:
+        source = Image.open (input_path)
+        source_data = list(source.getdata())
+    except IOError:
+        log.debug ("Error opening %s" % input_path)
+        sys.exit(0)
+
     source_width, source_height = source.size
     output_width, output_height = source_width*zoom, source_height*zoom
 
