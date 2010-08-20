@@ -34,8 +34,9 @@ def build_colormap(files):
     for eachfile in files:
 	try:
             temp = Image.open(eachfile)
-	except IOError:
+	except IOError as error:
 	    log.debug("Error opening %s" % eachfile)
+            log.debug("IOError - %s" % error)
 	    continue
 
         red = green = blue = 0
