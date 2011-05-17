@@ -4,11 +4,11 @@ Pandamonkium Productions present
               / /_/ / / / / /|_/ / __ \/ ___/
              / ____/ /_/ / /  / / /_/ (__  )
             /_/    \__, /_/  /_/\____/____/
-                  /____/ 0.5
+                  /____/ 
 
                                                        -- ideamonk and yuvipanda
                                                                   #hackers-india
-        
+
 Purpose -
 
     PyMos is a Python module that helps you generate a mosaic poster of an image
@@ -21,7 +21,7 @@ Purpose -
         * http://www.flickr.com/photos/ideamonk/4064596012/
 
     Dependencies -
-    
+
         * argparse          met by setuptools
         * PIL 1.1.6+        manual
 
