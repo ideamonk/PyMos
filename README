@@ -59,12 +59,12 @@ Usage -
         * 	a collection is just any folder that has many small images to build up
             the mosaic
 
-        *	ZOOM is the number of times input file is enlarged to make the output
+        *	  ZOOM is the number of times input file is enlarged to make the output
             file. Eg if input file is 800x600, a zoom of 10 would give you 8000x6000
 
-        *	THUMBSIZE is the size of small pieces that would compose the output image.
+        *	  THUMBSIZE is the size of small pieces that would compose the output image.
 
-        *	A colormap is generated and stored for a collection (directory) in order
+        *	  A colormap is generated and stored for a collection (directory) in order
             to save time in regeneration. If you add new images to a collection, you
             can fire pymos with -nc option to generate a new colormap which would
             include the newly added images.

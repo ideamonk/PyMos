@@ -8,4 +8,4 @@
 
 #                                                          ideamonk at gmail.com
 
-time python -m profile -o $1 ./test -ts 120 ./sandbox/test.jpg ./sandbox/test.png ./sandbox/thumbs/ -nc
+time python -m profile -o $1 ./test -v -f 40 -ts 120 ./sandbox/test.jpg ./sandbox/test.png ./sandbox/thumbs/ -nc
