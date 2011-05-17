@@ -20,7 +20,7 @@ import sys, logging
 try:
     import argparse
 except ImportError:
-    print "argparse required but missing"
+    print "argparse required but missing, try 'easy_install argparse' or 'pip install argparse'"
     sys.exit(1)
 
 from pymos.core import build_mosaic

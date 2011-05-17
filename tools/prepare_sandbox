@@ -1,0 +1,3 @@
+#!/bin/bash
+
+python ./flickfetch.py apple 10 | xargs wget --directory-prefix=../sandbox/thumbs
