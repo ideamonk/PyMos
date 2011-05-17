@@ -23,10 +23,46 @@ try:
 except ImportError:
     import pickle
 
-def build_colormap(files):
-    ''' checks for presense of colormap, if not found then builds one and
-        caches it for future '''
-        
+USING_RTREE = False
+
+try:
+    import rtree
+    USING_RTREE = False
+except:
+    # we shall fall back to linear time queries in absence of rtree
+    pass
+
+
+def get_average_rgb(image, filename):
+    red = green = blue = 0
+    try:
+        imdata = list(image.getdata())
+        imdata_size = len(imdata)
+    except:
+        log.debug ("Error processing " + filename)
+        return None
+
+    try:
+        for i in imdata:
+            if cmp(type(i).__name__, 'int') == 0:
+                red += i
+                green += i
+                blue += i
+            else:
+                red += i[0]
+                green += i[1]
+                blue += i[2]
+
+        # average the color of this thumbnail
+        red /= imdata_size
+        green /= imdata_size
+        blue /= imdata_size
+    except ValueError:
+        log.debug ("Error processing " + filename)
+    return (red, green, blue)
+
+
+def get_linear_colormap(files):
     colormap = []
     file_count = 0
     total_files = len(files)
@@ -39,40 +75,25 @@ def build_colormap(files):
             log.debug("IOError - %s" % error)
             continue
 
-        red = green = blue = 0
-        try:
-            imdata = list(temp.getdata())
-            imdata_size = len(imdata)
-        except:
-            log.debug ("Error processing " + eachfile)
+        rgb = get_average_rgb(temp, eachfile)
+        if not rgb:
             continue
-
-        try:
-            for i in imdata:
-                if cmp(type(i).__name__, 'int') == 0:
-                    red += i
-                    green += i
-                    blue += i
-                else:
-                    red += i[0]
-                    green += i[1]
-                    blue += i[2]
-
-            # average the color of this thumbnail
-            red /= imdata_size
-            green /= imdata_size
-            blue /= imdata_size
-        except ValueError:
-            log.debug ("Error processing " + eachfile)
-
+        
         # append to colormap
-        colormap.append( ( (red, green, blue), eachfile, None ))
+        colormap.append( ( rgb, eachfile, None ))
         # ^^ new format for colormap, None replaced with resized images
-        # when processing to optimize
+        # when processing to cache already loaded images
 
         file_count += 1
         log.debug("%.1f %% done" % ((float(file_count)/total_files)*100))
     return colormap
+        
+def build_colormap(files):
+    ''' builds out and returns an average color to file location mapping '''
+    if not USING_RTREE:
+        return get_linear_colormap(files)
+    else:
+        return get_rtree_colormap(files)
 
 
 def build_mosaic(input_path, output_path, collection_path,
