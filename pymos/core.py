@@ -28,7 +28,7 @@ NEAREST_CACHE = {}
 
 try:
     import rtree
-    USING_RTREE = False
+    USING_RTREE = True
 except:
     # we shall fall back to linear time queries in absence of rtree
     pass
