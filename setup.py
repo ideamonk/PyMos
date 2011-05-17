@@ -10,7 +10,7 @@ setup(name='PyMos',
       version='0.6.3',
       packages=['pymos'],
       scripts=['bin/pymos'],
-      install_requires=['argparse', 'pil'],
+      install_requires=['argparse', 'pil', 'rtree'],
       license = "BSD",
       # Thats how Apple was able to take OpenBSD, make Mac OS X :)
       # http://bheekly.blogspot.com/2007/08/what-is-free.html

@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # Download with wget and xargs
-# python download.py portrait 1 | xargs wget --directory-prefix=pics
+# python flickfetch.py portrait 1 | xargs wget --directory-prefix=pics
 # first argument is tag name, second is page number. 500 pics per page.
 #                                                        -- Yuvi Panda
 

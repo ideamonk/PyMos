@@ -32,38 +32,38 @@ def build_colormap(files):
     total_files = len(files)
     log = logging.getLogger("PyMos")
     for eachfile in files:
-	try:
-            temp = Image.open(eachfile)
-	except IOError as error:
-	    log.debug("Error opening %s" % eachfile)
-            log.debug("IOError - %s" % error)
-	    continue
-
-        red = green = blue = 0
         try:
-            imdata = list(temp.getdata())
-            imdata_size = len(imdata)
-        except:
-            log.debug ("Error processing " + eachfile)
+                  temp = Image.open(eachfile)
+        except IOError as error:
+            log.debug("Error opening %s" % eachfile)
+                  log.debug("IOError - %s" % error)
             continue
 
-        try:
-            for i in imdata:
-                if cmp(type(i).__name__, 'int') == 0:
-                    red += i
-                    green += i
-                    blue += i
-                else:
-                    red += i[0]
-                    green += i[1]
-                    blue += i[2]
+              red = green = blue = 0
+              try:
+                  imdata = list(temp.getdata())
+                  imdata_size = len(imdata)
+              except:
+                  log.debug ("Error processing " + eachfile)
+                  continue
 
-            # average the color of this thumbnail
-            red /= imdata_size
-            green /= imdata_size
-            blue /= imdata_size
-        except ValueError:
-            log.debug ("Error processing " + eachfile)
+              try:
+                  for i in imdata:
+                      if cmp(type(i).__name__, 'int') == 0:
+                          red += i
+                          green += i
+                          blue += i
+                      else:
+                          red += i[0]
+                          green += i[1]
+                          blue += i[2]
+
+                  # average the color of this thumbnail
+                  red /= imdata_size
+                  green /= imdata_size
+                  blue /= imdata_size
+              except ValueError:
+                  log.debug ("Error processing " + eachfile)
 
         # append to colormap
         colormap.append( ( (red, green, blue), eachfile, None ))
@@ -98,7 +98,7 @@ def build_mosaic(input_path, output_path, collection_path,
         #except IOError:
         #    log.info( "Error: Collection not found.")
         #    sys.exit(1)
-		# this exception might cause it to break even at x% of colormap build
+    # this exception might cause it to break even at x% of colormap build
 
     log.info("Color Index built")
 
