@@ -24,7 +24,8 @@ Purpose -
 
         * argparse          met by setuptools
         * PIL 1.1.6+        manual
-
+        * rtree             optional
+        * libspatialindex   needed by rtree module
 
 Usage -
 
