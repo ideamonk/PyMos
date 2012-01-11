@@ -54,26 +54,26 @@ Usage -
 
     Notes:
 
-        * 	Input files can be any standard image file supported by
-            PIL (Python Imaging Library) 1.1.6+
+        * Input files can be any standard image file supported by
+          PIL (Python Imaging Library) 1.1.6+
 
-        * 	a collection is just any folder that has many small images to build up
-            the mosaic
+        * a collection is just any folder that has many small images to build up
+          the mosaic
 
-        *	  ZOOM is the number of times input file is enlarged to make the output
-            file. Eg if input file is 800x600, a zoom of 10 would give you 8000x6000
+        * ZOOM is the number of times input file is enlarged to make the output
+          file. Eg if input file is 800x600, a zoom of 10 would give you 8000x6000
 
-        *	  THUMBSIZE is the size of small pieces that would compose the output image.
+        * THUMBSIZE is the size of small pieces that would compose the output image.
 
-        *	  A colormap is generated and stored for a collection (directory) in order
-            to save time in regeneration. If you add new images to a collection, you
-            can fire pymos with -nc option to generate a new colormap which would
-            include the newly added images.
+        * A colormap is generated and stored for a collection (directory) in order
+          to save time in regeneration. If you add new images to a collection, you
+          can fire pymos with -nc option to generate a new colormap which would
+          include the newly added images.
 
-        *   How to make a collection of images ?
-            Well its upto you. We just saved some random thumnails from flickr.
-            You could use twitter API as well to fetch display pics of your friends
-            and make a mosaic using your followers :)
+        * How to make a collection of images ?
+          Well its upto you. We just saved some random thumnails from flickr.
+          You could use twitter API as well to fetch display pics of your friends
+          and make a mosaic using your followers :)
 
 
     2. As a library -
@@ -97,7 +97,7 @@ Usage -
 
         foo = build_mosaic(
                 input_path="foo.jpg",
-                output_path=None,                          # notice the None here
+                output_path=None,               # notice the None here
                 collection_path="/tmp/apples",
                 zoom=20,
                 thumb_size=100,
@@ -107,7 +107,11 @@ Usage -
         foo.show()
 
 
-A more detailed, friendly description - http://huntertrek.com/wp/2009/11/30/photo-mosaics-with-pymos/
+PyMos in the blogs -
+        * http://huntertrek.com/wp/2009/11/30/photo-mosaics-with-pymos/
+
+Projects using PyMos - 
+        * Beiber mosaic - https://github.com/bluekite2000/bieber-mosaic
 
 Feedback -
 
