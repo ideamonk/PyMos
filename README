@@ -14,12 +14,6 @@ Purpose -
     PyMos is a Python module that helps you generate a mosaic poster of an image
     using a desired collection of thumbnails.
 
-    Some sample images can be seen here
-
-        * http://www.flickr.com/photos/ideamonk/4020798966/sizes/m/
-        * http://www.flickr.com/photos/ideamonk/4026969049/sizes/l/
-        * http://www.flickr.com/photos/ideamonk/4064596012/
-
     Dependencies -
 
         * argparse          met by setuptools
@@ -107,8 +101,9 @@ Usage -
         foo.show()
 
 
-PyMos in the blogs -
+PyMos on the web -
         * http://huntertrek.com/wp/2009/11/30/photo-mosaics-with-pymos/
+        * http://www.youtube.com/watch?v=NmkALoUjtjI
 
 Projects using PyMos - 
         * http://instasaic.com/
