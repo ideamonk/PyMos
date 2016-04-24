@@ -144,12 +144,12 @@ def build_colormap(files, colormap_file):
 
 def get_euclidean_match(source_color, colormap):
     # euclidean distance, color, index in colormap
-    r_1, g_1, b_1 = source_color
+    r_1, g_1, b_1 = source_color[0:3]
     match = (196608, (555, 555, 555), 0) # initially something out of range
     for index, thumbs in zip (xrange(len(colormap)), colormap):
         thumb_color = thumbs[0]
         # calculate the euclidian distance between the two colors
-        r_2, g_2, b_2 = thumb_color
+        r_2, g_2, b_2 = thumb_color[0:3]
 
         ecd_match = match[0]
         ecd_found = ( (r_2 - r_1) ** 2 + (g_2 - g_1) ** 2 +
